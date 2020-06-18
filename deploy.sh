@@ -87,6 +87,7 @@ make -j 8
 
 cd ../gzbridge
 $DIR/node_modules/.bin/node-gyp configure
+sed -i 's/Boost::/boost_/g' build/gzbridge.target.mk
 $DIR/node_modules/.bin/node-gyp build -d
 
 RETVAL=$?
