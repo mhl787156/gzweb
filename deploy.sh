@@ -18,6 +18,7 @@ MODELS=
 LOCAL=
 COARSE=
 THUMBNAIL=
+SKIPBUILD=
 GetOpts()
 {
   branch=""
@@ -49,6 +50,10 @@ GetOpts()
           THUMBNAIL=true
           echo "Thumbnails will be generated"
           ;;
+	-s)
+	  SKIPBUILD=true
+	  echo "Skipping build stages"
+	  ;;
         *)
           usage
           argv+=(${opt})
@@ -62,6 +67,7 @@ GetOpts $*
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $DIR
 
+if [[ ! $SKIPBUILD ]]; then
 # Install node modules
 npm install
 
@@ -97,6 +103,7 @@ if [ $RETVAL -ne 0 ]; then
 fi
 
 cd $DIR
+fi
 
 # build a local model database
 if [[ $MODELS ]]
