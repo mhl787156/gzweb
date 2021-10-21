@@ -627,7 +627,13 @@ void GazeboInterface::ProcessMessages()
           // simulate latching stats topic
           if (this->statsMsgs.empty())
           {
-            this->statsMsgs.push_back(this->statsMsg);
+            // If a topic subscription comes in before this->statsMsg is initialised, may be NULL
+            if(!this->statsMsg) {
+              std::cout << "!!!!!!!!!\nstatsMsg is not initialised to simulate latch\n!!!!!!!!!" << std::endl;
+            }
+            else {
+              this->statsMsgs.push_back(this->statsMsg);
+            }
           }
         }
       }
@@ -648,9 +654,6 @@ void GazeboInterface::ProcessMessages()
     for (auto sIter = this->sceneMsgs.begin(); sIter != this->sceneMsgs.end();
         ++sIter)
     {
-      if((*sIter).get() == NULL) {
-        std::cout << "!!!!!\n(*sIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->sceneTopic,
           pb2json(*(*sIter).get()));
       this->Send(msg);
@@ -661,9 +664,6 @@ void GazeboInterface::ProcessMessages()
     for (auto physicsIter = this->physicsMsgs.begin();
         physicsIter != this->physicsMsgs.end(); ++physicsIter)
     {
-      if((*physicsIter).get() == NULL) {
-        std::cout << "!!!!!\n(*physicsIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->physicsTopic,
           pb2json(*(*physicsIter).get()));
       this->Send(msg);
@@ -674,9 +674,6 @@ void GazeboInterface::ProcessMessages()
     for (auto modelIter = this->modelMsgs.begin();
         modelIter != this->modelMsgs.end(); ++modelIter)
     {
-      if((*modelIter).get() == NULL) {
-        std::cout << "!!!!!\n(*modelIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->modelTopic,
           pb2json(*(*modelIter).get()));
       this->Send(msg);
@@ -687,9 +684,6 @@ void GazeboInterface::ProcessMessages()
     for (auto sensorIter = this->sensorMsgs.begin();
         sensorIter != this->sensorMsgs.end(); ++sensorIter)
     {
-      if((*sensorIter).get() == NULL) {
-        std::cout << "!!!!!\n(*sensorIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->sensorTopic,
           pb2json(*(*sensorIter).get()));
       this->Send(msg);
@@ -700,9 +694,6 @@ void GazeboInterface::ProcessMessages()
     for (auto lightIter = this->lightFactoryMsgs.begin();
         lightIter != this->lightFactoryMsgs.end(); ++lightIter)
     {
-      if((*lightIter).get() == NULL) {
-        std::cout << "!!!!!\n(*lightIter).get() (Factory) is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->lightFactoryTopic,
           pb2json(*(*lightIter).get()));
       this->Send(msg);
@@ -713,9 +704,6 @@ void GazeboInterface::ProcessMessages()
     for (auto lightIter = this->lightModifyMsgs.begin();
         lightIter != this->lightModifyMsgs.end(); ++lightIter)
     {
-      if((*lightIter).get() == NULL) {
-        std::cout << "!!!!!\n(*lightIter).get() (Modify) is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->lightModifyTopic,
           pb2json(*(*lightIter).get()));
       this->Send(msg);
@@ -726,9 +714,6 @@ void GazeboInterface::ProcessMessages()
     for (auto visualIter = this->visualMsgs.begin();
         visualIter != this->visualMsgs.end(); ++visualIter)
     {
-      if((*visualIter).get() == NULL) {
-        std::cout << "!!!!!\n(*visualIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->visualTopic,
           pb2json(*(*visualIter).get()));
       this->Send(msg);
@@ -739,9 +724,6 @@ void GazeboInterface::ProcessMessages()
     for (auto jointIter = this->jointMsgs.begin();
         jointIter != this->jointMsgs.end(); ++jointIter)
     {
-      if((*jointIter).get() == NULL) {
-        std::cout << "!!!!!\n(*jointIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->jointTopic,
           pb2json(*(*jointIter).get()));
       this->Send(msg);
@@ -752,9 +734,6 @@ void GazeboInterface::ProcessMessages()
     for (auto rIter =  this->requestMsgs.begin();
         rIter != this->requestMsgs.end(); ++rIter)
     {
-      if((*rIter).get() == NULL) {
-        std::cout << "!!!!!\n(*rIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->requestTopic,
           pb2json(*(*rIter).get()));
       this->Send(msg);
@@ -765,9 +744,6 @@ void GazeboInterface::ProcessMessages()
     for (auto wIter = this->statsMsgs.begin(); wIter != this->statsMsgs.end();
         ++wIter)
     {
-      if((*wIter).get() == NULL) {
-        std::cout << "!!!!!\n(*wIter).get() is NULL\n!!!!!" << std::endl;
-      }
       msg = this->PackOutgoingTopicMsg(this->statsTopic,
           pb2json(*(*wIter).get()));
       this->Send(msg);
@@ -778,11 +754,6 @@ void GazeboInterface::ProcessMessages()
     auto pIter = this->poseMsgs.begin();
     while (pIter != this->poseMsgs.end())
     {
-      /*
-      if(&(*pIter) == NULL) {
-        std::cout << "!!!!!\n(*pIter).get() is NULL\n!!!!!" << std::endl;
-      }
-      */
       msg = this->PackOutgoingTopicMsg(this->poseTopic,
           pb2json(*pIter));
       this->Send(msg);
