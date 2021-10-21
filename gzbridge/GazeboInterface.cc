@@ -778,8 +778,8 @@ void GazeboInterface::ProcessMessages()
     auto pIter = this->poseMsgs.begin();
     while (pIter != this->poseMsgs.end())
     {
-      if(pIter == NULL) {
-        std::cout << "!!!!!\npIter is NULL\n!!!!!" << std::endl;
+      if((*pIter).get() == NULL) {
+        std::cout << "!!!!!\n(*pIter).get() is NULL\n!!!!!" << std::endl;
       }
       msg = this->PackOutgoingTopicMsg(this->poseTopic,
           pb2json(*pIter));
