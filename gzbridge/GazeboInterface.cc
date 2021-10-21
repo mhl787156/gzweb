@@ -628,7 +628,7 @@ void GazeboInterface::ProcessMessages()
           if (this->statsMsgs.empty())
           {
             // If a topic subscription comes in before this->statsMsg is initialised, may be NULL
-            if(!this->statsMsg) {
+            if(this->statsMsg.get() == nullptr) {
               std::cout << "!!!!!!!!!\nstatsMsg is not initialised to simulate latch\n!!!!!!!!!" << std::endl;
             }
             else {
