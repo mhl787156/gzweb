@@ -153,6 +153,11 @@ namespace gzweb {
 
   json_t *parse_msg(const Message *msg)
   {
+    if ( !msg ) {
+      // How did you end up here?
+      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nNULL msg in parse_msg\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1" << std::endl;
+      return NULL;
+    }
     const Descriptor *d = msg->GetDescriptor();
     if(!d)return NULL;
     size_t count = d->field_count();
