@@ -46,7 +46,7 @@ namespace gzweb {
   std::string pb2json(const Message &msg)
   {
     if( &msg == NULL ) {
-      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1\nNULL msg passed to pb2json\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!\nNULL msg passed to pb2json\n!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
       return "{\"error\":\"null message\"}"; 
     }
     json_t *root = parse_msg(&msg);
