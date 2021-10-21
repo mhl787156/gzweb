@@ -47,7 +47,7 @@ namespace gzweb {
   {
     if( &msg == NULL ) {
       std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1\nNULL msg passed to pb2json\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-      return ""; 
+      return "{\\\"error\\\":\\\"null message\\\"}"; 
     }
     json_t *root = parse_msg(&msg);
     char *json = json_dumps(root, 0);
@@ -158,8 +158,6 @@ namespace gzweb {
   json_t *parse_msg(const Message *msg)
   {
     if ( !msg ) {
-      // How did you end up here?
-      std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\nNULL msg in parse_msg\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
       return NULL;
     }
     const Descriptor *d = msg->GetDescriptor();
