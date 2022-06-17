@@ -15,7 +15,7 @@
     "update": "./node_modules/.bin/grunt build && cd build && cmake ..",
     "update-dev": "./node_modules/.bin/grunt concat && cd build && cmake ..",
     "start": "if [ $npm_config_port ]; then port=$npm_config_port; fi; cd gzbridge && ./server.js $port",
-    "deploy": "if [ $npm_config_deploy_op ]; then ./deploy.sh -$npm_config_deploy_op; else ./deploy.sh; fi;",
+    "deploy": "./deploy.sh \"$( [ $npm_config_deploy_op ] && echo -\"$npm_config_deploy_op\" )\" ",
     "docs": "./node_modules/.bin/grunt doc",
     "coverage": "codecov"
   },
